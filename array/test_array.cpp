@@ -37,9 +37,8 @@ int main(int argc, char* argv[])
   
   Array<num> newArray;
   newArray = rtoo;
-  
+
   cout << "newArray = " << newArray << endl;
-  
   // append three integers to newArray 
   newArray.append(num(1));
   newArray.append(num(10));

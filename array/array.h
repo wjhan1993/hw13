@@ -82,11 +82,10 @@ Array<myType>::Array(){
   {
     array = new myType[2];
   }
-  catch(std::bad_alloc& e)
-  {
-    cout << "new Exception" << e.what() << endl;
+  catch(const exception &e){
+    cout << "new exception " <<  e.what() << endl;
   }
-
+  
   if (array != NULL){
     Size = 0;
     capacity  = 2;
@@ -97,14 +96,13 @@ Array<myType>::Array(){
 // copy constructor
 template <class myType>
 Array<myType>::Array(const Array<myType>& y){
-
   try
   {
     array = new myType[y.getCapacity()];
   }
-  catch(std::bad_alloc& e)
+  catch (const exception & e)
   {
-    cout << "new Exception" << e.what() << endl;
+    cout << "new exception " <<  e.what() <<  endl;
   }
 
   if (array != NULL){
@@ -123,14 +121,13 @@ Array<myType>::Array(const Array<myType>& y){
 // Array(int length,myType* values)
 template <class myType>
 Array<myType>::Array(int length, myType* values){
-
   try
   {
     array = new myType[length];
   }
-  catch(std::bad_alloc& e)
+  catch (const exception &e)
   {
-    cout << "new Exception" << e.what() << endl;
+    cout << "new exception " << e.what() << endl;
   }
   
   if (values != NULL and array != NULL){
@@ -160,11 +157,11 @@ Array<myType>::Array(int s,myType v){
   // allocate memeory for the array
   try
   {
-    array = new myType[Size];
+    array = new myType[s];
   }
-  catch(std::bad_alloc& e)
+  catch (const exception &e)
   {
-    cout << "new Exception" << e.what() << endl;
+    cout << "new exception " <<  e.what() << endl;
   }
   
   if (array != NULL){
@@ -189,6 +186,7 @@ int Array<myType>::size() const{
 // append x to the end of the array
 template <class myType>
 void Array<myType>::append(myType x){
+  
  // if the array is full, expand the capacity
   if (capacity){
      if (capacity == Size)
@@ -197,6 +195,7 @@ void Array<myType>::append(myType x){
     // append x to the end and update count
     array[Size++] = x;
   }
+  
 }
 
 // append array y to the end of the array
@@ -213,6 +212,7 @@ void Array<myType>::append(const Array<myType>& y){
       array[Size++] = y[i];
     }
   }
+ 
 }
 
 // overload of =
@@ -221,14 +221,13 @@ Array<myType>& Array<myType>::operator=(const Array& y){
   if(this != &y){
 
     cleanup();
-
     try
     {
-      array = new myType[capacity];
+      array = new myType[y.getCapacity()];
     }
-    catch(const std::bad_alloc& e)
+    catch(const exception &e)
     {
-      cout << "new Exception" << e.what() << endl;
+      cout << "new exception " << e.what() << endl;
     }
     
     if (array != NULL){
@@ -240,8 +239,8 @@ Array<myType>& Array<myType>::operator=(const Array& y){
       for (int i = 0;i < Size;i++)
         array[i] = y[i];
     }
-    
   }
+ 
   return *this;
 }
 
@@ -253,8 +252,8 @@ myType& Array<myType>::operator[](int index)const{
   
   if (index < 0 or index >= Size)
     throw myError;
-    
-  return array[index];
+  else
+    return array[index];
 }
 
 // get count
@@ -270,17 +269,16 @@ void Array<myType>::expand(){
   // allocate a array with double size
   myType *newArray;
   int newCapacity = 2 * capacity;
-  
   try
   {
     newArray = new myType[newCapacity];
   }
-  catch(const std::bad_alloc& e)
+  catch (const exception &e)
   {
-    cout << "new Exception" << e.what() << endl;
+    cout << "new exception " << e.what() << endl << endl;
   }
 
-  if (newArray != NULL){
+  if(newArray != NULL){
 
     // copy all elements
     for (int i = 0;i < Size;i++)
@@ -323,19 +321,15 @@ ostream& operator<<(ostream& os, const Array<myType>& y)
       os << y[i] << ", "; 
   }
   os << y[i] << "]";
+  
   return os;
 }
 
 // cleanup: release all memory associated with the array
 template <class myType>
 void Array<myType>::cleanup(){
-  if (array){
-    try{
-      delete [] array;
-    }
-    catch (exception &e){
-      cout << e.what() << endl;
-    }
+  if (array != NULL){
+    delete array;
     array = NULL;
   }
 
