@@ -221,24 +221,16 @@ Array<myType>& Array<myType>::operator=(const Array& y){
   if(this != &y){
 
     cleanup();
-    try
-    {
-      array = new myType[y.getCapacity()];
-    }
-    catch(const exception &e)
-    {
-      cout << "new exception " << e.what() << endl;
-    }
     
-    if (array != NULL){
+    array = new myType[y.getCapacity()];
+   
+    // set size and capacity
+    capacity = y.getCapacity();
+    Size = y.size();
       
-      // set size and capacity
-      capacity = y.getCapacity();
-      Size = y.size();
-      
-      for (int i = 0;i < Size;i++)
-        array[i] = y[i];
-    }
+    for (int i = 0;i < Size;i++)
+      array[i] = y[i];
+    
   }
  
   return *this;
