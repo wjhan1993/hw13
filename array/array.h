@@ -223,6 +223,7 @@ Array<myType>& Array<myType>::operator=(const Array& y){
     cleanup();
     
     array = new myType[y.getCapacity()];
+    
     if (array != NULL)
     { 
       // set size and capacity
