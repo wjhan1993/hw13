@@ -223,14 +223,15 @@ Array<myType>& Array<myType>::operator=(const Array& y){
     cleanup();
     
     array = new myType[y.getCapacity()];
-   
-    // set size and capacity
-    capacity = y.getCapacity();
-    Size = y.size();
+    if (array ! = NULL)
+    { 
+      // set size and capacity
+      capacity = y.getCapacity();
+      Size = y.size();
       
-    for (int i = 0;i < Size;i++)
-      array[i] = y[i];
-    
+      for (int i = 0;i < Size;i++)
+        array[i] = y[i];
+    }
   }
  
   return *this;
