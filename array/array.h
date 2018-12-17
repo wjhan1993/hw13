@@ -197,6 +197,10 @@ template <class myType>
 Array<myType>& Array<myType>::operator=(const Array& y){
   if(this != &y){
 
+    // set size and capacity
+    capacity = y.getCapacity();
+    Size = y.size();
+      
     cleanup();
     try
     {
@@ -208,9 +212,6 @@ Array<myType>& Array<myType>::operator=(const Array& y){
     
     if (array != NULL)
     { 
-      // set size and capacity
-      capacity = y.getCapacity();
-      Size = y.size();
       
       for (int i = 0;i < Size;i++)
         array[i] = y[i];
