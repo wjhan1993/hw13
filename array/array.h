@@ -198,8 +198,13 @@ Array<myType>& Array<myType>::operator=(const Array& y){
   if(this != &y){
 
     cleanup();
-    
-    array = new myType[y.getCapacity()];
+    try
+    {
+      array = new myType[y.getCapacity()];
+    }
+    catch (const exception &e){
+      cout << "assignment exception " << e.what() << endl;
+    }
     
     if (array != NULL)
     { 
