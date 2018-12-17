@@ -249,14 +249,9 @@ void Array<myType>::expand(){
   // allocate a array with double size
   myType *newArray = NULL;
   int newCapacity = 2 * capacity;
-  try
-  {
-    newArray = new myType[newCapacity];
-  }
-  catch (const exception &e){
-    cout << "expand exception " << e.what() << endl;
-  }
 
+  newArray = new myType[newCapacity];
+ 
   if (newArray != NULL){
     // copy all elements
     for (int i = 0;i < Size;i++)
