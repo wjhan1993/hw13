@@ -37,16 +37,16 @@ int main(int argc, char* argv[])
   
   Array<num> newArray;
   newArray = rtoo;
-
+  
   cout << "newArray = " << newArray << endl;
-
+  
   // append three integers to newArray 
   newArray.append(num(1));
   newArray.append(num(10));
   newArray.append(num(15));
   cout << "newArray size = " << newArray.size() << " and newArray =  " \
        << newArray;
-
+  
   // copy constructor
   Array<num> newArraytoo(newArray);
   newArraytoo[0] = num(-100);

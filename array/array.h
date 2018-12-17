@@ -86,55 +86,65 @@ Array<myType>::Array(){
   {
     cout << "new Exception" << e.what() << endl;
   }
-  
+
+  if (array != NULL){
     Size = 0;
     capacity  = 2;
+  }
+  
 }
 
 // copy constructor
 template <class myType>
 Array<myType>::Array(const Array<myType>& y){
 
-  // allocate int array 
-  Size = y.size();
-  capacity = y.getCapacity();
-  
   try
   {
-    array = new myType[capacity];
+    array = new myType[y.getCapacity()];
   }
   catch(std::bad_alloc& e)
   {
     cout << "new Exception" << e.what() << endl;
   }
+
+  if (array != NULL){
+    
+    // set Size and capacity
+    Size = y.size();
+    capacity = y.getCapacity();
   
-  // copy elements in Array y
-  for (int i = 0;i < Size;i++)
-    array[i] = y[i];
+    // copy elements in Array y
+    for (int i = 0;i < Size;i++)
+      array[i] = y[i];
+  }
   
 }
 
 // Array(int length,myType* values)
 template <class myType>
 Array<myType>::Array(int length, myType* values){
-  // allocate int array 
-  Size = length;
+
   try
   {
-    array = new myType[Size];
+    array = new myType[length];
   }
   catch(std::bad_alloc& e)
   {
     cout << "new Exception" << e.what() << endl;
   }
   
-  if (values != NULL){
+  if (values != NULL and array != NULL){
 
+    // set Size and capacity
+    Size = length;
+    capacity = length;
+    
     // copy elements in Array y
     for (int i = 0;i < Size;i++)
       array[i] = values[i];
+
   }
-  capacity = length; 
+  
 }
 
 // destructor
@@ -146,7 +156,6 @@ Array<myType>::~Array(){
 // Initialize an array with size = s and assign all elements as v
 template <class myType>
 Array<myType>::Array(int s,myType v){
-  Size = s;
   
   // allocate memeory for the array
   try
@@ -158,11 +167,16 @@ Array<myType>::Array(int s,myType v){
     cout << "new Exception" << e.what() << endl;
   }
   
-  capacity = s;
-
-  // initialize all elements as v
-  for (int i = 0;i < Size;i++)
-    array[i] = v;
+  if (array != NULL){
+    
+    // set size and capacity
+    Size = s;
+    capacity = s;
+    
+    // initialize all elements as v
+    for (int i = 0;i < Size;i++)
+      array[i] = v;
+  }
   
 }
 
@@ -205,20 +219,8 @@ void Array<myType>::append(const Array<myType>& y){
 template <class myType>
 Array<myType>& Array<myType>::operator=(const Array& y){
   if(this != &y){
-    
+
     cleanup();
-    
-    // clear the current array
-    try
-    {
-      delete array;
-    }
-    catch(const exception& e)
-    {
-      cout << "delete Exception" << e.what() << endl;
-    }
-     // same as the copy constructor
-    capacity = y.getCapacity();
 
     try
     {
@@ -226,12 +228,18 @@ Array<myType>& Array<myType>::operator=(const Array& y){
     }
     catch(const std::bad_alloc& e)
     {
-    cout << "new Exception" << e.what() << endl;
+      cout << "new Exception" << e.what() << endl;
     }
     
-    Size = y.size();
-    for (int i = 0;i < Size;i++)
-      array[i] = y[i];
+    if (array != NULL){
+      
+      // set size and capacity
+      capacity = y.getCapacity();
+      Size = y.size();
+      
+      for (int i = 0;i < Size;i++)
+        array[i] = y[i];
+    }
     
   }
   return *this;
@@ -262,6 +270,7 @@ void Array<myType>::expand(){
   // allocate a array with double size
   myType *newArray;
   int newCapacity = 2 * capacity;
+  
   try
   {
     newArray = new myType[newCapacity];
@@ -270,15 +279,17 @@ void Array<myType>::expand(){
   {
     cout << "new Exception" << e.what() << endl;
   }
- 
-  // copy all elements
-  for (int i = 0;i < Size;i++)
-    newArray[i] = array[i];
-  
-  cleanup();
-  
-  array = newArray;
-  capacity = newCapacity;
+
+  if (newArray != NULL){
+
+    // copy all elements
+    for (int i = 0;i < Size;i++)
+      newArray[i] = array[i];
+
+    cleanup();
+    array = newArray;
+    capacity = newCapacity;
+  }
   
 }
 
@@ -309,7 +320,7 @@ ostream& operator<<(ostream& os, const Array<myType>& y)
   os << "[";
   int i;
   for (i = 0;i < y.size() - 1;i++){
-    os << y[i] << ", "; 
+      os << y[i] << ", "; 
   }
   os << y[i] << "]";
   return os;
@@ -319,7 +330,12 @@ ostream& operator<<(ostream& os, const Array<myType>& y)
 template <class myType>
 void Array<myType>::cleanup(){
   if (array){
-    delete [] array;
+    try{
+      delete [] array;
+    }
+    catch (exception &e){
+      cout << e.what() << endl;
+    }
     array = NULL;
   }
 
