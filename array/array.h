@@ -269,25 +269,17 @@ void Array<myType>::expand(){
   // allocate a array with double size
   myType *newArray = NULL;
   int newCapacity = 2 * capacity;
-  try
-  {
-    newArray = new myType[newCapacity];
-  }
-  catch (const exception &e)
-  {
-    cout << "new exception " << e.what() << endl << endl;
-  }
+  
+  newArray = new myType[newCapacity];
+  
+  // copy all elements
+  for (int i = 0;i < Size;i++)
+    newArray[i] = array[i];
 
-  if(newArray != NULL){
-
-    // copy all elements
-    for (int i = 0;i < Size;i++)
-      newArray[i] = array[i];
-
-    cleanup();
-    array = newArray;
-    capacity = newCapacity;
-  }
+  cleanup();
+  array = newArray;
+  capacity = newCapacity;
+ 
   
 }
 
@@ -331,8 +323,6 @@ void Array<myType>::cleanup(){
   if (array != NULL){
     delete [] array;
     array = NULL;
-    Size = 0;
-    capacity = 0;
   }
 
 }
