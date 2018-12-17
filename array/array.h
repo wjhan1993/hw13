@@ -2,7 +2,8 @@
 #define ARRAY_H_INCLUDED_
 #include <iostream>
 #include <cstdlib>
-#include <stdlib.h>  
+#include <stdlib.h>
+#include <new>
 using namespace std;
 
 class OutOfBoundsException: public exception
@@ -81,7 +82,7 @@ Array<myType>::Array(){
   {
     array = new myType[2];
   }
-  catch(const exception& e)
+  catch(const std::bad_alloc& e)
   {
     cout << "new Exception" << e.what() << endl;
   }
@@ -102,7 +103,7 @@ Array<myType>::Array(const Array<myType>& y){
   {
     array = new myType[capacity];
   }
-  catch(const exception& e)
+  catch(const std::bad_alloc& e)
   {
     cout << "new Exception" << e.what() << endl;
   }
@@ -122,7 +123,7 @@ Array<myType>::Array(int length, myType* values){
   {
     array = new myType[Size];
   }
-  catch(const exception& e)
+  catch(const std::bad_alloc& e)
   {
     cout << "new Exception" << e.what() << endl;
   }
@@ -152,7 +153,7 @@ Array<myType>::Array(int s,myType v){
   {
     array = new myType[Size];
   }
-  catch(const exception& e)
+  catch(const std::bad_alloc& e)
   {
     cout << "new Exception" << e.what() << endl;
   }
@@ -223,7 +224,7 @@ Array<myType>& Array<myType>::operator=(const Array& y){
     {
       array = new myType[capacity];
     }
-    catch(const exception& e)
+    catch(const std::bad_alloc& e)
     {
     cout << "new Exception" << e.what() << endl;
     }
@@ -265,7 +266,7 @@ void Array<myType>::expand(){
   {
     newArray = new myType[newCapacity];
   }
-  catch(const exception& e)
+  catch(const std::bad_alloc& e)
   {
     cout << "new Exception" << e.what() << endl;
   }

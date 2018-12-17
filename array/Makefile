@@ -1,2 +1,2 @@
 all:
-	g++ test_array.cpp -o array
+	g++ test_array_newfail.cpp -o array
