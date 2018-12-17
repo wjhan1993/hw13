@@ -134,7 +134,7 @@ Array<myType>::~Array(){
 
 // Initialize an array with size = s and assign all elements as v
 template <class myType>
-Array<myType>::Array(int s,myType v){
+Array<myType>::Array(int s, myType v){
   
   // allocate memeory for the array
   
@@ -181,6 +181,7 @@ void Array<myType>::append(const Array<myType>& y){
  if (capacity){
     // copy all elements in y 
     for (int i = 0;i < y.size();i++){
+      
       // When array is full, expand the capacity
       if (Size == capacity)
         this->expand();
@@ -208,6 +209,11 @@ Array<myType>& Array<myType>::operator=(const Array& y){
       
       for (int i = 0;i < Size;i++)
         array[i] = y[i];
+    }
+    else
+    {
+      capacity = 0;
+      Size = 0;
     }
   }
  
@@ -249,7 +255,6 @@ void Array<myType>::expand(){
   cleanup();
   array = newArray;
   capacity = newCapacity;
- 
   
 }
 
@@ -290,6 +295,7 @@ ostream& operator<<(ostream& os, const Array<myType>& y)
 // cleanup: release all memory associated with the array
 template <class myType>
 void Array<myType>::cleanup(){
+  
   if (array != NULL){
     delete [] array;
     array = NULL;
