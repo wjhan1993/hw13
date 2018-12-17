@@ -200,9 +200,6 @@ Array<myType>& Array<myType>::operator=(const Array& y){
     myType * newArray = NULL;
     try
     {
-       // set size and capacity
-      capacity = y.getCapacity();
-      Size = y.size();
       newArray = new myType[y.getCapacity()];
     }
     catch (const exception &e){
@@ -214,6 +211,10 @@ Array<myType>& Array<myType>::operator=(const Array& y){
       
       for (int i = 0;i < Size;i++)
         newArray[i] = y[i];
+
+      // set size and capacity
+      capacity = y.getCapacity();
+      Size = y.size();
       
       cleanup();
       array = newArray;
@@ -248,17 +249,23 @@ void Array<myType>::expand(){
   // allocate a array with double size
   myType *newArray = NULL;
   int newCapacity = 2 * capacity;
-  
-  newArray = new myType[newCapacity];
-  
-  // copy all elements
-  for (int i = 0;i < Size;i++)
-    newArray[i] = array[i];
+  try
+  {
+    newArray = new myType[newCapacity];
+  }
+  catch (const exception &e){
+    cout << "expand exception " << e.what() << endl;
+  }
 
-  cleanup();
-  array = newArray;
-  capacity = newCapacity;
-  
+  if (newArray != NULL){
+    // copy all elements
+    for (int i = 0;i < Size;i++)
+      newArray[i] = array[i];
+
+    cleanup();
+    array = newArray;
+    capacity = newCapacity;
+  }
 }
 
 // overload of +
