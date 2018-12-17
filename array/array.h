@@ -196,14 +196,13 @@ void Array<myType>::append(const Array<myType>& y){
 template <class myType>
 Array<myType>& Array<myType>::operator=(const Array& y){
   if(this != &y){
-
-    // set size and capacity
-    capacity = y.getCapacity();
-    Size = y.size();
       
     cleanup();
     try
     {
+       // set size and capacity
+      capacity = y.getCapacity();
+      Size = y.size();
       array = new myType[y.getCapacity()];
     }
     catch (const exception &e){
