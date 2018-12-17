@@ -197,28 +197,26 @@ template <class myType>
 Array<myType>& Array<myType>::operator=(const Array& y){
   if(this != &y){
       
-    cleanup();
+    myType * newArray = NULL;
     try
     {
        // set size and capacity
       capacity = y.getCapacity();
       Size = y.size();
-      array = new myType[y.getCapacity()];
+      newArray = new myType[y.getCapacity()];
     }
     catch (const exception &e){
       cout << "assignment exception " << e.what() << endl;
     }
     
-    if (array != NULL)
+    if (newArray != NULL)
     { 
       
       for (int i = 0;i < Size;i++)
-        array[i] = y[i];
-    }
-    else
-    {
-      capacity = 0;
-      Size = 0;
+        newArray[i] = y[i];
+      
+      cleanup();
+      array = newArray;
     }
   }
  
