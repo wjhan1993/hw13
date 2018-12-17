@@ -78,14 +78,8 @@ private:
 template <class myType>
 Array<myType>::Array(){
   
-  try
-  {
-    array = new myType[2];
-  }
-  catch(const exception &e){
-    cout << "new exception " <<  e.what() << endl;
-  }
-  
+  array = new myType[2];
+
   if (array != NULL){
     Size = 0;
     capacity  = 2;
@@ -96,14 +90,8 @@ Array<myType>::Array(){
 // copy constructor
 template <class myType>
 Array<myType>::Array(const Array<myType>& y){
-  try
-  {
-    array = new myType[y.getCapacity()];
-  }
-  catch (const exception & e)
-  {
-    cout << "new exception " <<  e.what() <<  endl;
-  }
+ 
+  array = new myType[y.getCapacity()];
 
   if (array != NULL){
     
