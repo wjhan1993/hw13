@@ -155,15 +155,9 @@ template <class myType>
 Array<myType>::Array(int s,myType v){
   
   // allocate memeory for the array
-  try
-  {
-    array = new myType[s];
-  }
-  catch (const exception &e)
-  {
-    cout << "new exception " <<  e.what() << endl;
-  }
   
+  array = new myType[s];
+ 
   if (array != NULL){
     
     // set size and capacity
