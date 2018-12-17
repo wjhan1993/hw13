@@ -331,6 +331,8 @@ void Array<myType>::cleanup(){
   if (array != NULL){
     delete [] array;
     array = NULL;
+    Size = 0;
+    capacity = 0;
   }
 
 }
