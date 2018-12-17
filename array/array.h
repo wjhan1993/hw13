@@ -267,7 +267,7 @@ template <class myType>
 void Array<myType>::expand(){
 
   // allocate a array with double size
-  myType *newArray;
+  myType *newArray = NULL;
   int newCapacity = 2 * capacity;
   try
   {
@@ -329,7 +329,7 @@ ostream& operator<<(ostream& os, const Array<myType>& y)
 template <class myType>
 void Array<myType>::cleanup(){
   if (array != NULL){
-    delete array;
+    delete [] array;
     array = NULL;
   }
 
