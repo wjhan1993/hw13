@@ -121,14 +121,8 @@ Array<myType>::Array(const Array<myType>& y){
 // Array(int length,myType* values)
 template <class myType>
 Array<myType>::Array(int length, myType* values){
-  try
-  {
-    array = new myType[length];
-  }
-  catch (const exception &e)
-  {
-    cout << "new exception " << e.what() << endl;
-  }
+  
+  array = new myType[length];
   
   if (values != NULL and array != NULL){
 
