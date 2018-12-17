@@ -82,7 +82,7 @@ Array<myType>::Array(){
   {
     array = new myType[2];
   }
-  catch(const std::bad_alloc& e)
+  catch(std::bad_alloc& e)
   {
     cout << "new Exception" << e.what() << endl;
   }
@@ -103,7 +103,7 @@ Array<myType>::Array(const Array<myType>& y){
   {
     array = new myType[capacity];
   }
-  catch(const std::bad_alloc& e)
+  catch(std::bad_alloc& e)
   {
     cout << "new Exception" << e.what() << endl;
   }
@@ -123,7 +123,7 @@ Array<myType>::Array(int length, myType* values){
   {
     array = new myType[Size];
   }
-  catch(const std::bad_alloc& e)
+  catch(std::bad_alloc& e)
   {
     cout << "new Exception" << e.what() << endl;
   }
@@ -153,7 +153,7 @@ Array<myType>::Array(int s,myType v){
   {
     array = new myType[Size];
   }
-  catch(const std::bad_alloc& e)
+  catch(std::bad_alloc& e)
   {
     cout << "new Exception" << e.what() << endl;
   }
